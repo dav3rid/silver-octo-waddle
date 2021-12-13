@@ -1,23 +1,36 @@
-import logo from './logo.svg';
 import './App.css';
+import QrReader from 'react-qr-reader';
+import { useEffect, useState } from 'react';
+import { db } from './firebase.js';
+
+import { doc, getDoc, setDoc } from 'firebase/firestore';
 
 function App() {
+  const [delay, setDelay] = useState(500);
+  const [docRef, setDocRef] = useState(
+    doc(db, 'users', '9lp65lfrNNxs8kQsjlTV')
+  );
+
+  const handleQrError = (mystery) => {
+    console.log(mystery, 'ERROR');
+  };
+  const handleQrScan = (data) => {
+    console.log(data, 'SCAN');
+    if (data !== null) {
+      const { egg } = JSON.parse(data);
+      setDoc(docRef, { [`egg_${egg}`]: true }, { merge: true });
+    }
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <p>QR</p>
+      <QrReader
+        delay={500}
+        style={{ width: '200px' }}
+        onError={handleQrError}
+        onScan={handleQrScan}
+      />
     </div>
   );
 }
