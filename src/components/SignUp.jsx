@@ -1,14 +1,14 @@
-import { collection, addDoc } from "firebase/firestore";
-import { db } from "../firebase";
-import { useState } from "react";
+import { collection, addDoc } from 'firebase/firestore';
+import { db } from '../firebase';
+import { useState } from 'react';
 
 const SignUp = ({ setUser }) => {
   const [formInputs, setFormInputs] = useState({
-    name: "",
-    email: "",
-    phone_number: "",
-    location: "",
-    interest: "student",
+    name: '',
+    email: '',
+    phone_number: '',
+    location: '',
+    interest: 'student',
   });
 
   const handleChange = (e) => {
@@ -30,9 +30,9 @@ const SignUp = ({ setUser }) => {
       egg_5: false,
       egg_6: false,
     };
-    const usersRef = collection(db, "users");
+    const usersRef = collection(db, 'users');
     addDoc(usersRef, newUser).then(({ id }) => {
-      const user = { id, name: formInputs.name };
+      const user = { id, name: formInputs.name, progress: 0 };
       setUser(user);
     });
   };
