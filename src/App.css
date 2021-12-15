@@ -1,25 +1,43 @@
 .App {
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  height: 90vh;
+  display: grid;
+
+  grid-template-rows: 20% 80%;
+  grid-template-areas:
+    'logo'
+    'hunt';
+  height: 100vh;
   width: 100vw;
 }
 
 #logo {
+  grid-area: logo;
   object-fit: contain;
   width: 100%;
-  height: 10rem;
-}
-
-.hunt {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
   height: 100%;
 }
 
+.hunt {
+  grid-area: hunt;
+  display: grid;
+  grid-template-rows: 10% 20% 70%;
+  grid-template-areas:
+    'name'
+    'progress-bar'
+    'hunt-content';
+  height: 100%;
+}
+
+.name {
+  grid-area: name;
+}
+
+.progress-bar {
+  grid-area: progress-bar;
+}
+
 .hunt-content {
+  grid-area: hunt-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -40,4 +58,9 @@
 .camera {
   width: 80%;
   max-width: 400px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }

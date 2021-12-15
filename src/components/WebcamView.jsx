@@ -1,10 +1,10 @@
-import React from "react";
-import Webcam from "react-webcam";
+import React from 'react';
+import Webcam from 'react-webcam';
 
 const WebcamView = () => {
   return (
     <div>
-      <Webcam className="camera" />
+      <Webcam height={250} width={250} />
     </div>
   );
 };
