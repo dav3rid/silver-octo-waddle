@@ -1,14 +1,14 @@
-import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebase';
-import { useState } from 'react';
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebase";
+import { useState } from "react";
 
 const SignUp = ({ setUser }) => {
   const [formInputs, setFormInputs] = useState({
-    name: '',
-    email: '',
-    phone_number: '',
-    location: '',
-    interest: 'student',
+    name: "",
+    email: "",
+    phone_number: "",
+    location: "",
+    interest: "student",
   });
 
   const handleChange = (e) => {
@@ -30,7 +30,7 @@ const SignUp = ({ setUser }) => {
       egg_5: false,
       egg_6: false,
     };
-    const usersRef = collection(db, 'users');
+    const usersRef = collection(db, "users");
     addDoc(usersRef, newUser).then(({ id }) => {
       const user = { id, name: formInputs.name, progress: 0 };
       setUser(user);
@@ -38,9 +38,9 @@ const SignUp = ({ setUser }) => {
   };
 
   return (
-    <div>
+    <div className="sign-page">
       <h2>Please enter your details</h2>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="sign-up-form">
         <label htmlFor="name">Full name:</label>
         <input
           type="text"
@@ -48,6 +48,7 @@ const SignUp = ({ setUser }) => {
           id="name"
           value={formInputs.name}
           onChange={handleChange}
+          required
         />
         <br />
         <label htmlFor="email">Email Address:</label>
@@ -57,6 +58,7 @@ const SignUp = ({ setUser }) => {
           id="email"
           value={formInputs.email}
           onChange={handleChange}
+          required
         />
         <br />
         <label htmlFor="phone_number">Phone Number:</label>
@@ -66,6 +68,7 @@ const SignUp = ({ setUser }) => {
           id="phone_number"
           value={formInputs.phone_number}
           onChange={handleChange}
+          required
         />
         <br />
         <label htmlFor="location">Location:</label>
@@ -75,6 +78,7 @@ const SignUp = ({ setUser }) => {
           id="location"
           value={formInputs.location}
           onChange={handleChange}
+          required
         />
         <br />
         <label htmlFor="interest">Source of interest:</label>

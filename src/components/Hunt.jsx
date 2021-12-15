@@ -1,15 +1,16 @@
-import { db } from '../firebase';
-import { doc, onSnapshot } from 'firebase/firestore';
-import { useEffect, useState } from 'react';
-import ProgressBar from './ProgressBar';
-import QrScanner from './QrScanner';
-import Fact from './Fact';
+import { db } from "../firebase";
+import { doc, onSnapshot } from "firebase/firestore";
+import { useEffect, useState } from "react";
+import ProgressBar from "./ProgressBar";
+import QrScanner from "./QrScanner";
+import Fact from "./Fact";
+import WebcamView from "./WebcamView";
 
 const Hunt = ({ user, setUser }) => {
   const [isQrVisible, setIsQrVisible] = useState(true);
-  const [fact, setFact] = useState('');
+  const [fact, setFact] = useState("");
   useEffect(() => {
-    const unsubscribe = onSnapshot(doc(db, 'users', user.id), (doc) => {
+    const unsubscribe = onSnapshot(doc(db, "users", user.id), (doc) => {
       const userData = doc.data();
       const trueEggsNum = Object.values(userData).filter(
         (value) => value === true
@@ -45,11 +46,19 @@ const Hunt = ({ user, setUser }) => {
         {showSelfieCam && (
           <>
             <p>What do you think a typical developer looks like?</p>
-            <input type="file" accept="image/*" capture="user" />
+            <WebcamView />
           </>
         )}
         {!isQrVisible && user.progress === 100 && (
-          <p>well done you've finished</p>
+          <>
+            <p>
+              Congratulations! You've found all the eggs! Show this page to a
+              member of staff to claim your prize/be entered into a raffle...
+            </p>
+            <p>
+              Keep an eye out on social media for more information about NC!
+            </p>
+          </>
         )}
         {!isQrVisible && user.progress < 100 && (
           <button onClick={() => setIsQrVisible(true)}>Open QR Scanner</button>
